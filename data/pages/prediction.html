@@ -12,11 +12,57 @@
   </head>
   <body>
       <div class="text-center mt-5">
-
+            <div>
+                <input id="Algebra" placeholder="Algebra"></input>
+                <input id="Infinite" placeholder="Infinite"></input>
+                <input id="Discrete" placeholder="Discrete"></input>
+                <input id="Python" placeholder="Python"></input>
+                <label id="predict_grade" class="border border-dark">Grade To Predict</label>
+            </div>
+            <div>
+                <button onclick="predict()">
+                    Predict
+                </button>
+            </div>
       </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    
+    <script>
+        function predict() {
+            var Algebra = $('#Algebra').val();
+            var Infinite = $('#Infinite').val();
+            var Discrete = $('#Discrete').val();
+            var Python = $('#Python').val();
+
+            var grade_regex = new RegExp("^[1-9][0-9]?$|^100$");
+            var valid_grades = true;
+
+            if(grade_regex.test(Algebra) == false){
+                valid_grades = false;
+                $('#Algebra').val() = "Invalid grade";
+            }
+            if(grade_regex.test(Infinite) == false){
+                valid_grades = false;
+                $('#Infinite').val() = "Invalid grade";
+            }
+            if(grade_regex.test(Discrete) == false){
+                valid_grades = false;
+                $('#Discrete').val() = "Invalid grade";
+            }
+            if(grade_regex.test(Python) == false){
+                valid_grades = false;
+                $('#Python').val() = "Invalid grade";
+            }
+
+            if(valid_grades == true){
+                //$('#predict_grade').val() = KNN()
+            }
+
+        }
+    </script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   </body>
