@@ -7,8 +7,12 @@ const mongoose = require('mongoose');
 
 
 mongoose.connect(process.env.MONGO_URI, {
-    useCreateIndex: true,
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
 console.log("Connected to mongoDB.");
+
+
+
+app.get('/', (req, res) => res.sendFile(path.resolve("data/pages/homepage.html"))); //Homepage.
+app.listen(port, () => console.log(`server is running on http://localhost:${port}`));
