@@ -13,7 +13,7 @@ mongoose.connect(process.env.MONGO_URI, {
 console.log("Connected to mongoDB.");
 
 
-app.get('/predict', (req, res) => res.sendFile(path.resolve("data/pages/prediction.html"))); //Homepage.
-app.get('/contribute', (req, res) => res.sendFile(path.resolve("data/pages/contribute_to_db.html"))); //Homepage.
-app.get('/', (req, res) => res.sendFile(path.resolve("data/pages/homepage.html"))); //Homepage.
+const pagesRoutes = require('./routes/pages_routes');
+app.use('/', pagesRoutes); //Homepage
+
 app.listen(port, () => console.log(`server is running on http://localhost:${port}`));
