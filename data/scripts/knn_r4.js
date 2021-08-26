@@ -1,1 +1,61 @@
-//New script for KNN algorithm in R4 dimension
+/* Script TODO:
+    1. Need to see how to create from data base an array of point objects
+    2. Need to establish what the objects attributes will be called
+    3. Needs testing */
+
+
+/* Calculates the distance between 2 points in 4 dimensions */
+function distance_r4(a, b){
+    delta1 = Math.pow(b.x1 - a.x1, 2);
+    delta2 = Math.pow(b.x2 - a.x2, 2);
+    delta3 = Math.pow(b.x3 - a.x3, 2);
+    delta4 = Math.pow(b.x4 - a.x4, 2);
+    return Math.sqrt(delta1 + delta2 + delta3 + delta4);
+}
+
+/* Returns a point object with additional dist_from_p attribute */
+function get_min_point(a, dist){
+    return {x1: a.x1, x2: a.x2, x3: a.x3, x4: a.x4, final: a.final, dist_from_p: dist};
+}
+
+/* Returns the index of the point with the maximum distance from the point-to-predict */
+function get_index_of_max(min_p_array, size){
+    var max = 0;
+    var index_of_max;
+    for(var i=0 ; i<size ; i++){
+        if(min_p_array[i].dist_from_p > max){
+            max = min_p_array[i].dist_from_p;
+            index_of_max = i;
+        }
+    }
+
+    return index_of_max;
+}
+
+/* Returns the grade prediction of a given point by KNN algorithm  */
+function knn_prediction(k, data, point){
+    var closest_p = [];
+    var d, sum=0;
+
+    /* Initiate k default points */
+    for (var i = 0; i < k; i++) {
+        element_to_push = {x1: 0, x2: 0, x3: 0, x4: 0, final: 0, dist_from_p: Number.MAX_VALUE};
+        closest_p.push(element_to_push);
+    }
+
+    /* Check the distance and save the k closest points */
+    data.forEach(p => {
+        d = distance_r4(p, point);
+        index = get_index_of_max(closest_p);
+        if(d < closest_p[index]){
+            closest_p[index] = get_min_point(p);
+        }
+    });
+
+    /* Return the avarage final grade of all closest points */
+    closest_p.forEach(p => {
+        sum += p.final;
+    });
+
+    return sum / k;
+}
