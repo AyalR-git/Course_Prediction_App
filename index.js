@@ -14,6 +14,9 @@ console.log("Connected to mongoDB.");
 
 
 const pagesRoutes = require('./routes/pages_routes');
-app.use('/', pagesRoutes); //Homepage
+app.use('/', pagesRoutes);
+
+const dbRoutes = require('./routes/db_routes');
+app.use('/db', dbRoutes);
 
 app.listen(port, () => console.log(`server is running on http://localhost:${port}`));
