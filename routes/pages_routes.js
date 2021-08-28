@@ -8,6 +8,9 @@ router.get('/homepage', (req, res) =>
 router.get('/prediction', (req, res) =>
     res.sendFile(path.resolve("data/Pages/prediction.html")));
 
+router.get('/menu', (req, res) =>
+    res.sendFile(path.resolve("data/Pages/menu.html")));
+
 router.get('/contribute_grades', (req, res) =>
     res.sendFile(path.resolve("data/Pages/contribute_to_db.html")));
 
