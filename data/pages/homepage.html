@@ -15,12 +15,12 @@
 <body>
     <div class="text-center mt-5">
         <h1>Course Grade Prediction</h1>
-        <form action="action_page.php" id="mainForm" style="display: none;">
+
+        <!-- LOGIN FORM -->
+        <form action="action_page.php" id="mainForm" style="display: none;" class="loginPrompt">
             <div class="container">
-                <h1 class="regPrompt" style="display: none;">Sign in</h1>
-                <h1 class="loginPrompt" style="display: none;">Register</h1>
-                <p class="regPrompt" style="display: none;">Please fill in this form to sign in to your account.</p>
-                <p class="loginPrompt" style="display: none;">Please fill in this form to create a new account.</p>
+                <h1>Sign in</h1>
+                <p>Please fill in this form to sign in to your account.</p>
                 <hr>
                 <label for="email"><b>Email</b></label>
                 <input type="text" placeholder="Enter Email" name="email" id="email" required>
@@ -28,20 +28,42 @@
                 <label for="psw"><b>Password</b></label>
                 <input type="password" placeholder="Enter Password" name="psw" id="psw" required>
                 <br>
-                <!-- <label for="psw-repeat" class="loginPrompt" style="display: none;"><b>Repeat Password</b></label> -->
-                <!-- <input type="password" class="loginPrompt" style="display: none;" placeholder="Repeat Password" name="psw-repeat" id="psw-repeat" required> -->
                 <hr>
-                <p class="loginPrompt" style="display: none;">By creating an account you agree to our <a href="/terms_and_condition">Terms & Privacy</a>.</p>
-                <button type="submit" name="loginBtn" class="btn btn-primary regPrompt" style="display: none;">Login</button>
-                <button type="submit" name="regBtn" class="btn btn-primary loginPrompt" style="display: none;">Register</button>
+                <button type="submit" name="loginBtn" class="btn btn-primary">Login</button>
                 <!--ToDelete after finish log in-->
                 <a href="/menu"> After log in need to move to "menu" page </a>
                 <!--ToDelete-->
             </div>
 
             <div class="container register">
-                <p class="regPrompt" style="display: none;">Don't have an account? <a onclick="jsfunction(0)" href="#">Register</a>.</p>
-                <p class="loginPrompt" style="display: none;">Already have an account? <a onclick="jsfunction(1)" href="#">Sign in</a>.</p>
+                <p>Don't have an account? <a onclick="SwitchLoginRegister(0)" href="#">Register</a>.</p>
+            </div>
+        </form>
+
+        <!-- REGISTER FORM -->
+        <form action="action_page.php" id="mainForm" style="display: none;" class="regPrompt">
+            <div class="container">
+                <h1>Register</h1>
+                <p>Please fill in this form to create a new account.</p>
+                <hr>
+                <label for="email"><b>Email</b></label>
+                <input type="text" placeholder="Enter Email" name="email" id="email" required>
+                <br>
+                <label for="psw"><b>Password</b></label>
+                <input type="password" placeholder="Enter Password" name="psw" id="psw" required>
+                <br>
+                <label for="psw-repeat"><b>Repeat Password</b></label>
+                <input type="password" placeholder="Repeat Password" name="psw-repeat" id="psw-repeat" required>
+                <hr>
+                <p>By creating an account you agree to our <a href="/terms_and_condition">Terms & Privacy</a>.</p>
+                <button type="submit" name="regBtn" class="btn btn-primary">Register</button>
+                <!--ToDelete after finish log in-->
+                <a href="/menu"> After log in need to move to "menu" page </a>
+                <!--ToDelete-->
+            </div>
+
+            <div class="container register">
+                <p>Already have an account? <a onclick="SwitchLoginRegister(1)" href="#">Sign in</a>.</p>
             </div>
         </form>
     </div>
@@ -74,15 +96,14 @@
         auth.onAuthStateChanged(user => {
             if (user) {
                 console.log(user.email + " logged in");
-                $("#mainForm").hide()
-                $("#logoutBtn").show()
+                
+                window.location.href = "/menu";
             } else {
                 console.log("logged out");
 
                 $(document).ready(function() {
-                    $("#mainForm").show()
                     $("#logoutBtn").hide()
-                    $(".regPrompt").show()
+                    $(".loginPrompt").show()
                 });
             }
         });
@@ -125,16 +146,15 @@
             });
         }
 
-        function jsfunction(option) {
+        function SwitchLoginRegister(option) {
             if (option) {
                 $(document).ready(function() {
-                    $(".regPrompt").show()
-                    $(".loginPrompt").hide()
+                    $(".regPrompt").hide()
+                    $(".loginPrompt").show()
                 });
             } else {
-                $(".regPrompt").hide()
-                $(".loginPrompt").show()
-                    //HERE
+                $(".loginPrompt").hide()
+                $(".regPrompt").show()
             }
         }
     </script>
