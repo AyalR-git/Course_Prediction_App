@@ -17,7 +17,7 @@
         <h1>Course Grade Prediction</h1>
 
         <!-- LOGIN FORM -->
-        <form action="action_page.php" id="mainForm" style="display: none;" class="loginPrompt">
+        <form action="action_page.php" id="loginForm" style="display: none;" class="loginPrompt">
             <div class="container">
                 <h1>Sign in</h1>
                 <p>Please fill in this form to sign in to your account.</p>
@@ -41,7 +41,7 @@
         </form>
 
         <!-- REGISTER FORM -->
-        <form action="action_page.php" id="mainForm" style="display: none;" class="regPrompt">
+        <form action="action_page.php" id="regForm" style="display: none;" class="regPrompt">
             <div class="container">
                 <h1>Register</h1>
                 <p>Please fill in this form to create a new account.</p>
@@ -96,8 +96,10 @@
         auth.onAuthStateChanged(user => {
             if (user) {
                 console.log(user.email + " logged in");
-                
-                window.location.href = "/menu";
+                $("#logoutBtn").show()
+                // window.location.href = "/menu";
+                $('.loginPrompt').hide();
+                $('.regPrompt').hide();
             } else {
                 console.log("logged out");
 
@@ -108,23 +110,16 @@
             }
         });
 
-        // logout.
-        const logout = document.getElementById('logoutBtn');
-        logout.addEventListener('click', (e) => {
-            e.preventDefault();
-            auth.signOut();
-        });
-
-
         //login.
-        const loginForm = document.getElementById('mainForm');
+        const loginForm = document.getElementById('loginForm');
         loginForm.addEventListener('submit', (e) => {
             e.preventDefault();
 
             //get user info.
             const email = loginForm['email'].value;
             const password = loginForm['psw'].value;
-            //log the user in,
+
+            //log the user in
             auth.signInWithEmailAndPassword(email, password).then((cred) => {
                 //clear form.
                 loginForm.reset();
@@ -138,13 +133,41 @@
         });
 
         //register.
-        function regNewUser(email, password) {
+        const regForm = document.getElementById('regForm');
+        regForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            //get user info.
+            const email = regForm['email'].value;
+            const password = regForm['psw'].value;
+            const rptPassword = regForm['psw-repeat'].value;
+            if (password !== rptPassword)
+            {
+                //TOOD: dispplay the error
+                console.log("passwords not the same");
+                return;
+            }
+
+            //log the user in
             auth.createUserWithEmailAndPassword(email, password).then((cred) => {
-                // Signed in 
+                //clear form.
+                regForm.reset();
             }).catch(err => {
+
+                //TODO: show the error.
+
                 console.log(err.message);
             });
-        }
+        });
+
+        // logout.
+        const logout = document.getElementById('logoutBtn');
+        logout.addEventListener('click', (e) => {
+            e.preventDefault();
+            auth.signOut();
+
+            window.location.href = "/homepage";
+        });
 
         function SwitchLoginRegister(option) {
             if (option) {
