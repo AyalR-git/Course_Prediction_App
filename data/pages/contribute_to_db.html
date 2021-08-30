@@ -36,34 +36,67 @@
             var Infinite = $('#Infinite').val();
             var Discrete = $('#Discrete').val();
             var Python = $('#Python').val();
-            var predict_grade = $('#predict_grade').val();
+            var Final = $('#predict_grade').val();
 
             var grade_regex = new RegExp("^[1-9][0-9]?$|^100$");
             var valid_grades = true;
 
             if(grade_regex.test(Algebra) == false){
                 valid_grades = false;
-                $('#Algebra').val() = "Invalid grade";
+                document.getElementById("Algebra").value = "Invalid grade";
             }
             if(grade_regex.test(Infinite) == false){
                 valid_grades = false;
-                $('#Infinite').val() = "Invalid grade";
+                document.getElementById("Infinite").value = "Invalid grade";
             }
             if(grade_regex.test(Discrete) == false){
                 valid_grades = false;
-                $('#Discrete').val() = "Invalid grade";
+                document.getElementById("Discrete").value = "Invalid grade";
             }
             if(grade_regex.test(Python) == false){
                 valid_grades = false;
-                $('#Python').val() = "Invalid grade";
+                document.getElementById("Python").value = "Invalid grade";
             }
-            if(grade_regex.test(predict_grade) == false){
+            if(grade_regex.test(Final) == false){
                 valid_grades = false;
-                $('#predict_grade').val() = "Invalid grade";
+                document.getElementById("predict_grade").value = "Invalid grade";
             }
 
             if(valid_grades == true){
-                //add grades
+                // Get all objects in DB to find current ID of the contributer.
+                var ID=0;
+                fetch('/db')
+                .then(res=>res.json()).then(order_list=>{
+                    ID = order_list.length;
+
+                    newObj = {
+                        ID: ID,
+                        name: "UnKnown",
+                        Algebra: parseInt(Algebra),
+                        Infinite: parseInt(Infinite),
+                        Discrete: parseInt(Discrete),
+                        Python: parseInt(Python),
+                        Final: parseInt(Final)
+                    }
+
+                    //send to DB.
+                    fetch('/db', {
+                        method: "POST",
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(newObj)
+                    });
+
+                    document.getElementById("Algebra").value = "";
+                    document.getElementById("Infinite").value = "";
+                    document.getElementById("Discrete").value = "";
+                    document.getElementById("Python").value = "";
+                    document.getElementById("predict_grade").value = "";
+                    window.location.href = "/menu";
+
+                })
             }
 
         }

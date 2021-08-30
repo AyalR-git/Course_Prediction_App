@@ -30,9 +30,6 @@
                 <br>
                 <hr>
                 <button type="submit" name="loginBtn" class="btn btn-primary">Login</button>
-                <!--ToDelete after finish log in-->
-                <a href="/menu"> After log in need to move to "menu" page </a>
-                <!--ToDelete-->
             </div>
 
             <div class="container register">
@@ -57,9 +54,6 @@
                 <hr>
                 <p>By creating an account you agree to our <a href="/terms_and_condition">Terms & Privacy</a>.</p>
                 <button type="submit" name="regBtn" class="btn btn-primary">Register</button>
-                <!--ToDelete after finish log in-->
-                <a href="/menu"> After log in need to move to "menu" page </a>
-                <!--ToDelete-->
             </div>
 
             <div class="container register">
@@ -123,6 +117,7 @@
             auth.signInWithEmailAndPassword(email, password).then((cred) => {
                 //clear form.
                 loginForm.reset();
+                window.location.href = "/menu";
             }).catch(err => {
 
                 //TODO: show the error.
@@ -152,6 +147,7 @@
             auth.createUserWithEmailAndPassword(email, password).then((cred) => {
                 //clear form.
                 regForm.reset();
+                window.location.href = "/menu";
             }).catch(err => {
 
                 //TODO: show the error.
