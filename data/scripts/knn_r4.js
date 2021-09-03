@@ -1,8 +1,5 @@
-/* Script TODO:
-    1. Need to see how to create from data base an array of point objects
-    2. Need to establish what the objects attributes will be called
-    3. Needs testing */
-
+const MarksModel = require('./models/marksModel');
+var BreakException = {};
 
 /* Calculates the distance between 2 points in 4 dimensions */
 function distance_r4(a, b){
@@ -21,7 +18,7 @@ function get_min_point(a, dist){
 /* Returns the index of the point with the maximum distance from the point-to-predict */
 function get_index_of_max(min_p_array, size){
     var max = 0;
-    var index_of_max;
+    var index_of_max = 0;
     for(var i=0 ; i<size ; i++){
         if(min_p_array[i].dist_from_p > max){
             max = min_p_array[i].dist_from_p;
@@ -33,7 +30,8 @@ function get_index_of_max(min_p_array, size){
 }
 
 /* Returns the grade prediction of a given point by KNN algorithm  */
-function knn_prediction(k, data, point){
+async function knn_prediction(k, point){
+    var data = await get_data()
     var closest_p = [];
     var d, sum=0;
 
@@ -46,9 +44,9 @@ function knn_prediction(k, data, point){
     /* Check the distance and save the k closest points */
     data.forEach(p => {
         d = distance_r4(p, point);
-        index = get_index_of_max(closest_p);
-        if(d < closest_p[index]){
-            closest_p[index] = get_min_point(p);
+        index = get_index_of_max(closest_p, k);
+        if(d < closest_p[index].dist_from_p){
+            closest_p[index] = get_min_point(p, d);
         }
     });
 
@@ -56,6 +54,21 @@ function knn_prediction(k, data, point){
     closest_p.forEach(p => {
         sum += p.final;
     });
-
     return sum / k;
+}
+
+/* Gets the data from DB and returns it as a list of points */
+async function get_data(){
+    var points_list = []
+    await MarksModel.find().then((marks) => {
+        try{
+            marks.forEach(element => {
+                if(typeof element.Algebra == 'undefined') throw BreakException;
+                points_list.push({x1: element.Algebra, x2: element.Infinite, x3: element.Discrete, x4: element.Python, final: element.Final});
+            });
+        }catch(e){
+            if (e !== BreakException) throw e;
+        }
+    });
+    return points_list;
 }
