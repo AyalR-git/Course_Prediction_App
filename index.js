@@ -12,6 +12,7 @@ mongoose.connect(process.env.MONGO_URI, {
 });
 console.log("Connected to mongoDB.");
 
+app.use('/static', express.static(path.join(__dirname, 'data')));
 
 const pagesRoutes = require('./routes/pages_routes');
 app.use('/', pagesRoutes);
