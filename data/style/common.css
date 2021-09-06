@@ -1,1 +1,48 @@
-<!-> A common css library <->
+/* <!-> A common css library <-> */
+
+/* ----- ----- ----- ----- top nav bar ----- ----- ----- ----- */
+
+/* ----- ----- ----- ----- fixed nav bar ----- ----- ----- ----- */
+.fixed-nav-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    width: 100%;
+    /* height: 50px; */
+    background-color: #4d4d4d;
+  }
+  /* Hide the links inside the navigation menu (except for logo/home) */
+  .fixed-nav-bar #myLinks {
+    display: none;
+  }
+  
+  /* Style navigation menu links */
+  .fixed-nav-bar a {
+    color: white;
+    background-color: #4d4d4d;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+    display: block;
+  }
+  
+  /* Style the hamburger menu */
+  .fixed-nav-bar a.icon {
+    background: black;
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  
+  /* Add a grey background color on mouse-over */
+  .fixed-nav-bar a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+  /* Style the active link (or home/logo) */
+  .active {
+    background-color: #696969;
+    color: white;
+  }
