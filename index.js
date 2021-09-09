@@ -7,10 +7,10 @@ const mongoose = require('mongoose');
 
 
 mongoose.connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
+	useNewUrlParser: true,
+	useUnifiedTopology: true
 });
-console.log("Connected to mongoDB.");
+console.log('Connected to mongoDB.');
 
 app.use('/static', express.static(path.join(__dirname, 'data')));
 
