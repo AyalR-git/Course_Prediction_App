@@ -79,7 +79,9 @@
                             <input type="text" placeholder="Enter Email" name="email" id="email" required>
                             <br>
                             <label for="psw"><b>Password</b></label>
-                            <input type="password" placeholder="Enter Password" name="psw" id="psw" required>
+                            <input onfocus="empty_error()" type="password" placeholder="Enter Password" name="psw" id="psw" required>
+                            <br>
+                            <label id="errormsg_login"><b></b></label>
                             <br>
                             <hr>
                             <button type="submit" name="loginBtn" class="btn btn-primary">Login</button>
@@ -100,10 +102,12 @@
                             <input type="text" placeholder="Enter Email" name="email" id="email" required>
                             <br>
                             <label for="psw"><b>Password</b></label>
-                            <input type="password" placeholder="Enter Password" name="psw" id="psw" required>
+                            <input onfocus="empty_error()" type="password" placeholder="Enter Password" name="psw" id="psw" required>
                             <br>
                             <label for="psw-repeat"><b>Repeat Password</b></label>
-                            <input type="password" placeholder="Repeat Password" name="psw-repeat" id="psw-repeat" required>
+                            <input onfocus="empty_error()" type="password" placeholder="Repeat Password" name="psw-repeat" id="psw-repeat" required>
+                            <br>
+                            <label id="errormsg_register"><b></b></label>
                             <hr>
                             <p>By creating an account you agree to our <a href="/terms_and_condition">Terms & Privacy</a>.</p>
                             <button type="submit" name="regBtn" class="btn btn-primary">Register</button>
@@ -171,9 +175,8 @@
             window.location.href = "/menu";
         }).catch(err => {
 
-            //TODO: show the error.
-
-            console.log(err.message);
+            document.getElementById('psw').value = "";
+            document.getElementById('errormsg_login').innerHTML = err.message;
         });
 
     });
@@ -188,8 +191,8 @@
         const password = regForm['psw'].value;
         const rptPassword = regForm['psw-repeat'].value;
         if (password !== rptPassword) {
-            //TOOD: dispplay the error
-            console.log("passwords not the same");
+            document.getElementById('psw').value = "";
+            document.getElementById('errormsg_register').innerHTML = "Passwords are not the same";
             return;
         }
 
@@ -200,9 +203,8 @@
             window.location.href = "/menu";
         }).catch(err => {
 
-            //TODO: show the error.
-
-            console.log(err.message);
+            document.getElementById('psw').value = "";
+            document.getElementById('errormsg_register').innerHTML = err.message;
         });
     });
 
@@ -223,6 +225,11 @@
             $(".loginPrompt").hide()
             $(".regPrompt").show()
         }
+    }
+
+    function empty_error() {
+        document.getElementById('errormsg_login').innerHTML = "";
+        document.getElementById('errormsg_register').innerHTML = "";
     }
 </script>
 

@@ -1,4 +1,4 @@
-const MarksModel = require('./models/marksModel');
+//const MarksModel = require('/../../models/marksModel');
 var BreakException = {};
 
 /* Calculates the distance between 2 points in 4 dimensions */
@@ -60,7 +60,7 @@ async function knn_prediction(k, point){
 /* Gets the data from DB and returns it as a list of points */
 async function get_data(){
     var points_list = []
-    await MarksModel.find().then((marks) => {
+    await fetch("/db").then(val => val.json()).then(marks => {
         try{
             marks.forEach(element => {
                 if(typeof element.Algebra == 'undefined') throw BreakException;

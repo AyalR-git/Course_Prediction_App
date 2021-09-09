@@ -101,8 +101,9 @@
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     
+    <script src="/static/scripts/knn_r4.js"></script>
     <script>
-        function predict() {
+        async function predict() {
             var Algebra = $('#Algebra').val();
             var Infinite = $('#Infinite').val();
             var Discrete = $('#Discrete').val();
@@ -113,25 +114,27 @@
 
             if(grade_regex.test(Algebra) == false){
                 valid_grades = false;
-                $('#Algebra').val() = "Invalid grade";
+                document.getElementById("Algebra").value = "Invalid grade";
             }
             if(grade_regex.test(Infinite) == false){
                 valid_grades = false;
-                $('#Infinite').val() = "Invalid grade";
+                document.getElementById("Infinite").value = "Invalid grade";
             }
             if(grade_regex.test(Discrete) == false){
                 valid_grades = false;
-                $('#Discrete').val() = "Invalid grade";
+                document.getElementById("Discrete").value = "Invalid grade";
             }
             if(grade_regex.test(Python) == false){
                 valid_grades = false;
-                $('#Python').val() = "Invalid grade";
+                document.getElementById("Python").value = "Invalid grade";
             }
 
             if(valid_grades == true){
-                //$('#predict_grade').val() = KNN()
+                k = 15;
+                var point = {x1: parseInt(Algebra), x2: parseInt(Infinite), x3: parseInt(Discrete), x4: parseInt(Python)};
+                var prediction_val = await knn_prediction(k, point)
+                document.getElementById("predict_grade").innerHTML = prediction_val;
             }
-
         }
     </script>
 
