@@ -3,7 +3,7 @@ const router = express.Router();
 const path = require('path');
 
 router.get('/homepage', (req, res) =>
-	res.sendFile(path.resolve('data/Pages/homepage.html')));
+	res.sendFile(path.join(__dirname, '../data', 'pages', 'homepage.html')));
 
 router.get('/prediction', (req, res) =>
 	res.sendFile(path.resolve('data/Pages/prediction.html')));
@@ -18,6 +18,6 @@ router.get('/terms_and_condition', (req, res) =>
 	res.sendFile(path.resolve('data/Pages/terms_and_condition.html')));
     
 router.get('/', (req, res) =>
-	res.sendFile(path.resolve('data/Pages/homepage.html')));
+	res.sendFile(path.join(__dirname, '../data', 'pages', 'homepage.html')));
 
 module.exports = router;
