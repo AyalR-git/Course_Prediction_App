@@ -27,24 +27,13 @@
         
             <div class="col-fluid">
                 <a href="/homepage" class="active">
-                    <i class="fa fa-home fa-2x"></i>
+                    <i class="fa fa-home fa-2x">Home Page</i>
                 </a>
             </div>
             
-            <div class="col-9"></div>
+            <div class="col-9">
+            </div>
 
-            <div class="col-fluid">
-                <a href="/Orders">
-                    <i class="fa fa-sign-in fa-2x" aria-hidden="true"></i>
-                    Log in
-                </a>
-            </div>
-            <div class="col-fluid">
-                <a href="/Checkout">
-                    <i class="fa fa-registered fa-2x" aria-hidden="true"></i>
-                    Register
-                </a>
-            </div>
             <div class="col-fluid">
                 <!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->
                 <a href="javascript:void(0);" class="icon" onclick="myFunction()">
@@ -57,15 +46,22 @@
     
     <!-- Navigation links (hidden by default) -->
     <div id="myLinks">
-        <a href="/prediction">Prediction</a>
-        <a href="/contribute_grades">Contribute grades</a>
+        <a href="/prediction">Predict Grade</a>
+        <a href="/contribute_grades">Add Grades To DataBase</a>
         <a href="/terms_and_condition">Terms and condition</a>
+        <a id="logoutBtnNB" href="/homepage">logout</a>
     </div>
     
 </nav>
 
 <div class="container">
-    <div class="row mt-5"></div>
+    <div class="row mt-5 text-center">
+        <h1>
+            <br>
+            Thank you for log in,<br> now you can navigate the website and predict your grades.
+            <br>
+        </h1>
+    </div>
     <div class="row">
         <div class="col-12 d-flex justify-content-center">
             <div class="dropdown mt-5">
@@ -107,5 +103,15 @@
         auth.signOut();
     });
 </script>
+
+<script>
+    const logoutNB = document.getElementById('logoutBtnNB');
+    logoutNB.addEventListener('click', (e) => {
+        auth.signOut();
+    });
+</script>
+
+
+
 
 </html>
